@@ -9,6 +9,7 @@ export const translations = {
       review: 'Triage Review',
       queue: 'Queue Dashboard',
       referral: 'Referral Generator',
+      analytics: 'Analytics / अंतर्दृष्टि',
     },
     role: {
       label: 'Role',
@@ -246,9 +247,10 @@ export const translations = {
       intake: 'रोगी पंजीकरण',
       review: 'ट्रायज समीक्षा',
       queue: 'कतार डैशबोर्ड',
-      referral: 'रेफरल जनरेटर',
-    },
-    role: {
+    referral: 'रेफरल जनरेटर',
+    analytics: 'Analytics / अंतर्दृष्टि',
+  },
+  role: {
       label: 'भूमिका',
       healthWorker: 'स्वास्थ्य कर्मी',
       doctor: 'चिकित्सा अधिकारी',

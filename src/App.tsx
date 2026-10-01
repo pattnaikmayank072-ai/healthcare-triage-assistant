@@ -6,6 +6,7 @@ import { PatientIntake } from '@/pages/PatientIntake';
 import { TriageReview } from '@/pages/TriageReview';
 import { QueueDashboard } from '@/pages/QueueDashboard';
 import { ReferralGenerator } from '@/pages/ReferralGenerator';
+import { Analytics } from '@/pages/Analytics';
 import type { PatientData, QueueItem } from '@/types/triage';
 import { ShieldCheck, Database, Wifi, AlertTriangle, Building2, Mic2, BrainCircuit, ClipboardCheck, FileText, ArrowRight, Activity } from 'lucide-react';
 
@@ -95,6 +96,7 @@ function AppContent() {
         {view === 'referral' && (
           <ReferralGenerator queueItems={queueItems} preselectedPatient={referralPatient} />
         )}
+        {view === 'analytics' && <Analytics />}
       </main>
 
       {/* Production-Grade Sticky Footer */}
