@@ -386,7 +386,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
             )}
             <button
               onClick={handleVoiceToggle}
-              disabled={voiceLoading}
+              disabled={voiceLoading || !consentGiven}
               className={`relative flex h-16 w-16 items-center justify-center rounded-full transition-all ${
                 isRecording
                   ? 'bg-red-500 text-white shadow-lg shadow-red-500/30'
@@ -397,6 +397,20 @@ export function PatientIntake({ onComplete }: IntakeProps) {
               {voiceLoading ? <Loader2 className="h-6 w-6 animate-spin" /> : isRecording ? <Square className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
             </button>
           </div>
+
+          {/* Live waveform animation */}
+          {isRecording && (
+            <div className="flex h-16 items-center gap-0.5 rounded-lg bg-slate-900 px-4 py-2 dark:bg-slate-900">
+              {waveformBars.map((h, i) => (
+                <div
+                  key={i}
+                  className="wave-bar w-1 rounded-full bg-gradient-to-t from-primary-400 to-red-400"
+                  style={{ height: `${h}%`, animationDelay: `${i * 0.05}s` }}
+                />
+              ))}
+            </div>
+          )}
+
           <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
             {isRecording ? t.intake.voiceListening : voiceLoading ? t.common.loading : t.intake.voiceStart}
           </p>
