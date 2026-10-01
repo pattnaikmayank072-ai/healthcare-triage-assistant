@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   UserRound,
   UserCog,
+  BarChart3,
 } from 'lucide-react';
 
 export function Navbar() {
@@ -28,6 +29,7 @@ export function Navbar() {
     { key: 'review', label: t.nav.review, icon: FileSearch },
     { key: 'queue', label: t.nav.queue, icon: LayoutGrid },
     { key: 'referral', label: t.nav.referral, icon: FileText },
+    { key: 'analytics', label: t.nav.analytics, icon: BarChart3 },
   ];
 
   const doctorOnly: View[] = ['queue', 'review'];

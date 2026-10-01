@@ -6,7 +6,7 @@ export type RiskLevel = 'red' | 'yellow' | 'green';
 
 export type TriageStatus = 'pending' | 'approved' | 'overridden' | 'referred';
 
-export type View = 'intake' | 'review' | 'queue' | 'referral';
+export type View = 'intake' | 'review' | 'queue' | 'referral' | 'analytics';
 
 export interface LabValue {
   key: string;

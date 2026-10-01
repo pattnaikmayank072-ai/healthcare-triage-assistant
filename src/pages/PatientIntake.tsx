@@ -64,6 +64,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
   const [abhaLoading, setAbhaLoading] = useState(false);
   const [abhaVerified, setAbhaVerified] = useState(false);
   const [abhaError, setAbhaError] = useState('');
+  const [abhaModalOpen, setAbhaModalOpen] = useState(false);
 
   // Consent
   const [consentGiven, setConsentGiven] = useState(false);
@@ -310,11 +311,20 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* ABHA Verification Widget */}
       <section className="card p-5">
-        <h2 className="section-title mb-1">
-          <Fingerprint className="h-5 w-5 text-primary-600 dark:text-primary-400" />
-          {t.abha.title}
-        </h2>
-        <p className="mb-4 text-xs text-slate-500 dark:text-slate-400">{t.abha.subtitle}</p>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h2 className="section-title mb-1">
+              <Fingerprint className="h-5 w-5 text-primary-600 dark:text-primary-400" />
+              {t.abha.title}
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">{t.abha.subtitle}</p>
+          </div>
+          <button onClick={() => setAbhaModalOpen(true)} className="btn-primary whitespace-nowrap" aria-label="Verify ABHA or Aadhaar ID">
+            <Fingerprint className="h-4 w-4" />
+            Verify ABHA / Aadhaar ID
+          </button>
+        </div>
+        <p className="mb-4 mt-3 text-xs text-slate-500 dark:text-slate-400">{t.abha.subtitle}</p>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
           <div className="flex-1">
             <label className="mb-1.5 block text-xs font-medium text-slate-600 dark:text-slate-300">{t.abha.lookup}</label>
@@ -357,6 +367,24 @@ export function PatientIntake({ onComplete }: IntakeProps) {
           {error}
         </div>
       )}
+
+      <Modal open={abhaModalOpen} onClose={() => setAbhaModalOpen(false)} title="Verify ABHA / Aadhaar ID" maxWidth="max-w-xl">
+        <div className="flex flex-col gap-4">
+          <p className="text-sm text-slate-600 dark:text-slate-300">Choose a secure verification method. Demo mode auto-fills a sample patient profile after verification.</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <button onClick={() => { handleAbhaScan(); setAbhaModalOpen(false); }} className="flex min-h-32 flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-primary-200 bg-primary-50/60 px-4 text-center transition hover:border-primary-400 hover:bg-primary-50 dark:border-primary-800 dark:bg-primary-900/20">
+              <QrCode className="h-8 w-8 text-primary-600 dark:text-primary-400" />
+              <span className="text-sm font-bold text-primary-800 dark:text-primary-200">Scan ABHA QR Code</span>
+              <span className="text-xs text-primary-700/70 dark:text-primary-300/70">एबीएचए क्यूआर स्कैन करें</span>
+            </button>
+            <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+              <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-200">Enter 14-digit ABHA Number</label>
+              <input className="input-field" value={abhaNumber.replace(/-/g, '')} onChange={(e) => { const digits = e.target.value.replace(/\D/g, '').slice(0, 14); setAbhaNumber(digits); setAbhaVerified(false); setAbhaError(''); }} inputMode="numeric" placeholder="14 digits" aria-label="14-digit ABHA Number" />
+              <button onClick={() => { handleAbhaVerify(); setAbhaModalOpen(false); }} disabled={abhaLoading} className="btn-primary mt-3 w-full justify-center">{abhaLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />} Auto-fill &amp; Verify</button>
+            </div>
+          </div>
+        </div>
+      </Modal>
 
       {/* Patient Details */}
       <section className="card p-5">
