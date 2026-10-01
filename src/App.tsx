@@ -43,7 +43,7 @@ function AppContent() {
         {view === 'referral' && (
           <ReferralGenerator queueItems={queueItems} preselectedPatient={referralPatient} />
         )}
-      </div>
+      </main>
 
       {/* Production-Grade Sticky Footer */}
       <footer className="sticky bottom-0 z-30 border-t border-slate-200 bg-white/95 backdrop-blur-md dark:border-slate-700 dark:bg-slate-900/95">
