@@ -254,6 +254,59 @@ export function PatientIntake({ onComplete }: IntakeProps) {
         </div>
       </div>
 
+      {/* DPDP Consent Toggle */}
+      <div className={`card flex items-center justify-between gap-3 p-4 transition-all ${
+        !consentGiven ? 'border-amber-300 ring-2 ring-amber-200 dark:border-amber-700 dark:ring-amber-800/50' : ''
+      }`}>
+        <div className="flex items-center gap-3">
+          <div className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors ${
+            consentGiven
+              ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400'
+              : 'bg-amber-100 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400'
+          }`}>
+            <Lock className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{t.consent.title}</p>
+            <p className="text-xs text-slate-400">{t.consent.obtained}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowConsentTooltip(!showConsentTooltip)}
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            aria-label="Consent info"
+          >
+            <AlertTriangle className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => setConsentGiven(!consentGiven)}
+            className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
+              consentGiven ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'
+            }`}
+            aria-label={t.consent.obtained}
+          >
+            <span
+              className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform ${
+                consentGiven ? 'translate-x-6' : 'translate-x-1'
+              }`}
+            />
+          </button>
+        </div>
+      </div>
+      {showConsentTooltip && (
+        <div className="card -mt-2 flex items-start gap-2 border-l-4 border-l-amber-400 p-3">
+          <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
+          <p className="text-xs text-slate-600 dark:text-slate-300">{t.consent.tooltip}</p>
+        </div>
+      )}
+      {!consentGiven && (
+        <div className="flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-700 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-400">
+          <Lock className="h-3.5 w-3.5" />
+          {t.consent.required}
+        </div>
+      )}
+
       {/* ABHA Verification Widget */}
       <section className="card p-5">
         <h2 className="mb-1 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
@@ -575,51 +628,6 @@ export function PatientIntake({ onComplete }: IntakeProps) {
           </div>
         )}
       </section>
-
-      {/* DPDP Consent Toggle */}
-      <div className="card flex items-center justify-between gap-3 p-4">
-        <div className="flex items-center gap-3">
-          <div className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors ${
-            consentGiven
-              ? 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400'
-              : 'bg-slate-100 text-slate-400 dark:bg-slate-800'
-          }`}>
-            <Lock className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{t.consent.title}</p>
-            <p className="text-xs text-slate-400">{t.consent.obtained}</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setShowConsentTooltip(!showConsentTooltip)}
-            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-            aria-label="Consent info"
-          >
-            <AlertTriangle className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => setConsentGiven(!consentGiven)}
-            className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
-              consentGiven ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'
-            }`}
-            aria-label={t.consent.obtained}
-          >
-            <span
-              className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform ${
-                consentGiven ? 'translate-x-6' : 'translate-x-1'
-              }`}
-            />
-          </button>
-        </div>
-      </div>
-      {showConsentTooltip && (
-        <div className="card -mt-2 flex items-start gap-2 border-l-4 border-l-amber-400 p-3">
-          <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500" />
-          <p className="text-xs text-slate-600 dark:text-slate-300">{t.consent.tooltip}</p>
-        </div>
-      )}
 
       {/* Actions */}
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
