@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,6 +14,9 @@
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-primary-500;
   }
+  h1, h2, h3 {
+    @apply tracking-tight;
+  }
 }
 
 @layer components {
@@ -21,7 +24,7 @@
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-primary {
-    @apply btn bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-sm;
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-sm hover:shadow-md;
   }
   .btn-secondary {
     @apply btn bg-secondary-100 text-secondary-800 hover:bg-secondary-200 dark:bg-secondary-800 dark:text-secondary-100 dark:hover:bg-secondary-700;
@@ -30,25 +33,44 @@
     @apply btn text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800;
   }
   .btn-danger {
-    @apply btn bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm;
+    @apply btn bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm hover:shadow-md;
   }
   .card {
-    @apply rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800;
+    @apply rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:shadow-md dark:border-slate-700 dark:bg-slate-800;
   }
   .input-field {
-    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500;
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 transition-all duration-200 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500;
   }
   .badge {
     @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold;
   }
   .badge-red {
-    @apply badge bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300;
+    @apply badge border border-red-200 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300;
   }
   .badge-yellow {
-    @apply badge bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300;
+    @apply badge border border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
   }
   .badge-green {
-    @apply badge bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300;
+    @apply badge border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply animate-skeleton rounded-md bg-slate-200 dark:bg-slate-700;
+  }
+
+  /* Section heading with bilingual subtext */
+  .page-title {
+    @apply text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-100;
+  }
+  .page-subtitle {
+    @apply mt-1 text-sm font-medium text-slate-500 dark:text-slate-400;
+  }
+  .section-title {
+    @apply flex items-center gap-2 text-lg font-semibold tracking-tight text-slate-800 dark:text-slate-100;
+  }
+  .bilingual-sub {
+    @apply text-xs font-medium text-slate-400 dark:text-slate-500;
   }
 }
 
@@ -69,6 +91,15 @@
 }
 .animate-pulse-ring {
   animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Pulsing dot for critical badges */
+.pulse-dot {
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.4); }
 }
 
 /* Slide up */

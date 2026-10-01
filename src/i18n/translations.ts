@@ -23,6 +23,7 @@ export const translations = {
     dark: 'Dark',
     intake: {
       title: 'Patient Intake & Data Capture',
+      titleHi: 'मरीज पंजीकरण',
       subtitle: 'Collect multimodal patient information for triage assessment',
       patientDetails: 'Patient Details',
       name: 'Patient Name',
@@ -65,6 +66,7 @@ export const translations = {
     },
     review: {
       title: 'Triage Summary & Risk Assessment',
+      titleHi: 'ट्रायज समीक्षा',
       subtitle: 'AI-assisted triage review for clinical decision support',
       riskLevel: 'Risk Level',
       riskScore: 'Risk Score',
@@ -88,6 +90,7 @@ export const translations = {
     },
     queue: {
       title: 'Outpatient Queue Dashboard',
+      titleHi: 'कतार डैशबोर्ड',
       subtitle: 'Live triage queue with risk prioritization',
       search: 'Search patients...',
       filterAll: 'All Risk Levels',
@@ -137,6 +140,7 @@ export const translations = {
     },
     referral: {
       title: 'Referral Note Generator',
+      titleHi: 'रेफरल जनरेटर',
       subtitle: 'Generate referral notes for escalation to tertiary facilities',
       fromFacility: 'Referring Facility',
       toFacility: 'Destination Facility',
@@ -222,6 +226,9 @@ export const translations = {
       abdm: 'ABDM Interoperable',
       offlineSync: 'Offline Sync Active (IndexedDB)',
       dpdp: 'DPDP Compliant Data Handling',
+      advisory: 'Clinical Decision Support System — For Triage Use Only',
+      facility: 'PHC Sonbhadra Node',
+      online: 'Online',
     },
     common: {
       loading: 'Loading...',
@@ -254,6 +261,7 @@ export const translations = {
     dark: 'डार्क',
     intake: {
       title: 'रोगी पंजीकरण एवं डेटा संग्रह',
+      titleHi: 'मरीज पंजीकरण',
       subtitle: 'ट्रायज मूल्यांकन हेतु बहुविध रोगी जानकारी एकत्र करें',
       patientDetails: 'रोगी विवरण',
       name: 'रोगी का नाम',
@@ -296,6 +304,7 @@ export const translations = {
     },
     review: {
       title: 'ट्रायज सारांश एवं जोखिम मूल्यांकन',
+      titleHi: 'ट्रायज समीक्षा',
       subtitle: 'नैदानिक निर्णय सहायता हेतु एआई-सहायित ट्रायज समीक्षा',
       riskLevel: 'जोखिम स्तर',
       riskScore: 'जोखिम स्कोर',
@@ -319,6 +328,7 @@ export const translations = {
     },
     queue: {
       title: 'बाह्य रोगी कतार डैशबोर्ड',
+      titleHi: 'कतार डैशबोर्ड',
       subtitle: 'जोखिम प्राथमिकता के साथ लाइव ट्रायज कतार',
       search: 'रोगी खोजें...',
       filterAll: 'सभी जोखिम स्तर',
@@ -368,6 +378,7 @@ export const translations = {
     },
     referral: {
       title: 'रेफरल नोट जनरेटर',
+      titleHi: 'रेफरल जनरेटर',
       subtitle: 'तृतीयक सुविधाओं में स्थानांतरण हेतु रेफरल नोट उत्पन्न करें',
       fromFacility: 'रेफर करने वाली सुविधा',
       toFacility: 'गंतव्य सुविधा',
@@ -453,6 +464,9 @@ export const translations = {
       abdm: 'ABDM अंतरसंचालनीय',
       offlineSync: 'ऑफलाइन सिंक सक्रिय (IndexedDB)',
       dpdp: 'DPDP अनुपालक डेटा प्रबंधन',
+      advisory: 'नैदानिक निर्णय सहायता प्रणाली — केवल ट्रायज हेतु',
+      facility: 'PHC सोनभद्र नोड',
+      online: 'ऑनलाइन',
     },
     common: {
       loading: 'लोड हो रहा है...',

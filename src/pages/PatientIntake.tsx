@@ -241,8 +241,9 @@ export function PatientIntake({ onComplete }: IntakeProps) {
     <div className="mx-auto max-w-5xl space-y-6 px-4 py-6 sm:px-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{t.intake.title}</h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t.intake.subtitle}</p>
+        <h1 className="page-title">{t.intake.title}</h1>
+        <p className="bilingual-sub">{t.intake.titleHi}</p>
+        <p className="page-subtitle">{t.intake.subtitle}</p>
       </div>
 
       {/* Advisory Banner */}
@@ -309,7 +310,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* ABHA Verification Widget */}
       <section className="card p-5">
-        <h2 className="mb-1 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-1">
           <Fingerprint className="h-5 w-5 text-primary-600 dark:text-primary-400" />
           {t.abha.title}
         </h2>
@@ -359,7 +360,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* Patient Details */}
       <section className="card p-5">
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-4">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-sm font-bold text-primary-700 dark:bg-primary-800 dark:text-primary-200">1</span>
           {t.intake.patientDetails}
         </h2>
@@ -397,7 +398,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* Chief Complaint & History */}
       <section className="card p-5">
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-4">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-sm font-bold text-primary-700 dark:bg-primary-800 dark:text-primary-200">2</span>
           {t.intake.chiefComplaint}
         </h2>
@@ -425,7 +426,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* Voice Input */}
       <section className="card p-5">
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-4">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-sm font-bold text-primary-700 dark:bg-primary-800 dark:text-primary-200">3</span>
           {t.intake.voiceInput}
         </h2>
@@ -467,6 +468,13 @@ export function PatientIntake({ onComplete }: IntakeProps) {
           <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
             {isRecording ? t.intake.voiceListening : voiceLoading ? t.common.loading : t.intake.voiceStart}
           </p>
+          {voiceLoading && (
+            <div className="w-full space-y-2 rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900/50">
+              <div className="skeleton h-3 w-20" />
+              <div className="skeleton h-4 w-full" />
+              <div className="skeleton h-4 w-3/4" />
+            </div>
+          )}
           {voiceTranscript && (
             <div className="w-full rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900/50">
               <p className="mb-1 text-xs font-semibold text-slate-500 dark:text-slate-400">{t.intake.voiceTranscript}</p>
@@ -478,7 +486,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* Document Upload / OCR */}
       <section className="card p-5">
-        <h2 className="mb-1 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-1">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-sm font-bold text-primary-700 dark:bg-primary-800 dark:text-primary-200">4</span>
           {t.intake.documentUpload}
         </h2>
@@ -545,7 +553,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* Image Upload */}
       <section className="card p-5">
-        <h2 className="mb-1 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-1">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-sm font-bold text-primary-700 dark:bg-primary-800 dark:text-primary-200">5</span>
           {t.intake.imageUpload}
         </h2>
@@ -581,7 +589,7 @@ export function PatientIntake({ onComplete }: IntakeProps) {
 
       {/* Symptom Timeline */}
       <section className="card p-5">
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-4">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-sm font-bold text-primary-700 dark:bg-primary-800 dark:text-primary-200">6</span>
           {t.intake.addSymptom}
         </h2>

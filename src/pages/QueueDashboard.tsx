@@ -258,8 +258,9 @@ export function QueueDashboard({ submittedPatient, onReferPatient, onItemsChange
       {/* Header */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{t.queue.title}</h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t.queue.subtitle}</p>
+          <h1 className="page-title">{t.queue.title}</h1>
+          <p className="bilingual-sub">{t.queue.titleHi}</p>
+          <p className="page-subtitle">{t.queue.subtitle}</p>
         </div>
         <button onClick={loadQueue} disabled={loading} className="btn-ghost self-start">
           <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
@@ -322,8 +323,16 @@ export function QueueDashboard({ submittedPatient, onReferPatient, onItemsChange
       {/* Table */}
       <div className="card overflow-hidden">
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="h-8 w-8 animate-spin text-primary-500" />
+          <div className="space-y-3 p-4">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="skeleton h-8 w-24" />
+                <div className="skeleton h-8 w-12" />
+                <div className="skeleton h-8 flex-1" />
+                <div className="skeleton h-8 w-20" />
+                <div className="skeleton h-8 w-24" />
+              </div>
+            ))}
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">

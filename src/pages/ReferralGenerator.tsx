@@ -95,8 +95,9 @@ export function ReferralGenerator({ queueItems, preselectedPatient }: ReferralPr
     <div className="mx-auto max-w-4xl space-y-6 px-4 py-6 sm:px-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">{t.referral.title}</h1>
-        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t.referral.subtitle}</p>
+        <h1 className="page-title">{t.referral.title}</h1>
+        <p className="bilingual-sub">{t.referral.titleHi}</p>
+        <p className="page-subtitle">{t.referral.subtitle}</p>
       </div>
 
       {/* Advisory */}
@@ -110,7 +111,7 @@ export function ReferralGenerator({ queueItems, preselectedPatient }: ReferralPr
 
       {/* Patient Selection */}
       <section className="card p-5">
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+        <h2 className="section-title mb-4">
           <User className="h-5 w-5 text-primary-600 dark:text-primary-400" />
           {t.referral.selectPatient}
         </h2>
@@ -143,7 +144,7 @@ export function ReferralGenerator({ queueItems, preselectedPatient }: ReferralPr
       {/* Referral Details */}
       {selectedPatient && (
         <section className="card p-5">
-          <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+          <h2 className="section-title mb-4">
             <Building2 className="h-5 w-5 text-primary-600 dark:text-primary-400" />
             {t.referral.fillDetails}
           </h2>
@@ -182,7 +183,7 @@ export function ReferralGenerator({ queueItems, preselectedPatient }: ReferralPr
       {generatedNote && (
         <section className="card p-5">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-800 dark:text-slate-100">
+            <h2 className="section-title">
               <FileText className="h-5 w-5 text-primary-600 dark:text-primary-400" />
               {t.referral.generatedNote}
             </h2>

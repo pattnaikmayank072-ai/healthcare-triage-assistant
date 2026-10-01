@@ -114,7 +114,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => { setMode('healthWorker'); setError(''); }}
-              className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
+              className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all duration-200 ${
                 mode === 'healthWorker'
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30'
                   : 'border-slate-200 hover:border-slate-300 dark:border-slate-600'
@@ -127,7 +127,7 @@ export function LoginModal({ open, onClose }: LoginModalProps) {
             </button>
             <button
               onClick={() => { setMode('doctor'); setError(''); }}
-              className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all ${
+              className={`flex flex-col items-center gap-1.5 rounded-xl border-2 p-3 transition-all duration-200 ${
                 mode === 'doctor'
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30'
                   : 'border-slate-200 hover:border-slate-300 dark:border-slate-600'
