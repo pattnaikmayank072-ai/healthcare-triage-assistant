@@ -1,0 +1,52 @@
+# Phase 3/4 scenario routing metadata; keywords are not clinical rules.
+# Required fields, triage rules, lab ranges, and queue weights remain empty because
+# none were supplied or approved. Populate only from reviewed, approved guidance.
+scenarios:
+  outpatient_queue:
+    rule_pack: outpatient_queue
+    prompt_profile: outpatient_queue
+    keywords: [outpatient, "general outpatient"]
+    required_fields: []
+    rules: []
+    lab_reference_ranges: []
+    queue_weights: {}
+  occupational_screening:
+    rule_pack: occupational_screening
+    prompt_profile: occupational_screening
+    keywords: [occupational, "occupational screening"]
+    required_fields: []
+    rules: []
+    lab_reference_ranges: []
+    queue_weights: {}
+  campus_fever:
+    rule_pack: campus_fever
+    prompt_profile: campus_fever
+    keywords: [campus, "campus fever"]
+    required_fields: []
+    rules: []
+    lab_reference_ranges: []
+    queue_weights: {}
+  maternal_follow_up:
+    rule_pack: maternal_follow_up
+    prompt_profile: maternal_follow_up
+    keywords: [maternal, pregnancy, "maternal follow-up"]
+    required_fields: []
+    rules: []
+    lab_reference_ranges: []
+    queue_weights: {}
+  chronic_check_in:
+    rule_pack: chronic_check_in
+    prompt_profile: chronic_check_in
+    keywords: [chronic, "chronic check-in"]
+    required_fields: []
+    rules: []
+    lab_reference_ranges: []
+    queue_weights: {}
+  camp_screening:
+    rule_pack: camp_screening
+    prompt_profile: camp_screening
+    keywords: ["camp screening"]
+    required_fields: []
+    rules: []
+    lab_reference_ranges: []
+    queue_weights: {}
