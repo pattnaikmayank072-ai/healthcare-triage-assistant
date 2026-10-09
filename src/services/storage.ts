@@ -49,54 +49,61 @@ export async function savePatientToDatabase(patient: PatientData): Promise<void>
   writeLocalPatients([patient, ...patients]);
 
   if (!supabase) return;
-  const { error } = await supabase.from('triage_cases').upsert({
-    id: patient.patient.id,
-    patient_name: patient.patient.name,
-    patient_age: patient.patient.age,
-    patient_gender: patient.patient.gender,
-    patient_phone: patient.patient.phone,
-    village: patient.patient.village,
-    facility: patient.patient.facility,
-    chief_complaint: patient.chiefComplaint,
-    symptom_history: patient.symptomHistory,
-    voice_transcript: patient.voiceTranscript,
-    symptoms: patient.symptoms,
-    ocr_results: patient.ocrResults,
-    images: patient.images,
-    risk_level: patient.riskLevel,
-    risk_score: patient.riskScore,
-    follow_up_questions: patient.followUpQuestions,
-    status: patient.status,
-    clinical_notes: patient.clinicalNotes ?? null,
-    override_reason: patient.overrideReason ?? null,
-    overridden_risk_level: patient.overriddenRiskLevel ?? null,
-    created_at: patient.createdAt,
-    updated_at: patient.updatedAt,
-  });
-  if (error) throw error;
+  try {
+    await supabase.from('triage_cases').upsert({
+      id: patient.patient.id,
+      patient_name: patient.patient.name,
+      patient_age: patient.patient.age,
+      patient_gender: patient.patient.gender,
+      patient_phone: patient.patient.phone,
+      village: patient.patient.village,
+      facility: patient.patient.facility,
+      chief_complaint: patient.chiefComplaint,
+      symptom_history: patient.symptomHistory,
+      voice_transcript: patient.voiceTranscript,
+      symptoms: patient.symptoms,
+      ocr_results: patient.ocrResults,
+      images: patient.images,
+      risk_level: patient.riskLevel,
+      risk_score: patient.riskScore,
+      follow_up_questions: patient.followUpQuestions,
+      status: patient.status,
+      clinical_notes: patient.clinicalNotes ?? null,
+      override_reason: patient.overrideReason ?? null,
+      overridden_risk_level: patient.overriddenRiskLevel ?? null,
+      created_at: patient.createdAt,
+      updated_at: patient.updatedAt,
+    });
+  } catch {
+    // Keep the offline-first demo usable while the browser retries cloud sync later.
+  }
 }
 
 export async function readCloudQueue(): Promise<QueueItem[] | null> {
   if (!supabase) return null;
-  const { data, error } = await supabase
-    .from('triage_cases')
-    .select('id,patient_name,patient_age,patient_gender,village,chief_complaint,risk_level,risk_score,status,created_at,facility')
-    .order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data ?? []).map((row) => ({
-    id: row.id,
-    patientName: row.patient_name,
-    patientId: row.id,
-    age: row.patient_age,
-    gender: row.patient_gender,
-    village: row.village,
-    chiefComplaint: row.chief_complaint,
-    riskLevel: row.risk_level,
-    riskScore: row.risk_score,
-    status: row.status,
-    createdAt: row.created_at,
-    facility: row.facility,
-  }));
+  try {
+    const { data, error } = await supabase
+      .from('triage_cases')
+      .select('id,patient_name,patient_age,patient_gender,village,chief_complaint,risk_level,risk_score,status,created_at,facility')
+      .order('created_at', { ascending: false });
+    if (error) return null;
+    return (data ?? []).map((row) => ({
+      id: row.id,
+      patientName: row.patient_name,
+      patientId: row.id,
+      age: row.patient_age,
+      gender: row.patient_gender,
+      village: row.village,
+      chiefComplaint: row.chief_complaint,
+      riskLevel: row.risk_level,
+      riskScore: row.risk_score,
+      status: row.status,
+      createdAt: row.created_at,
+      facility: row.facility,
+    }));
+  } catch {
+    return null;
+  }
 }
 
 export async function updatePatientInDatabase(
@@ -116,12 +123,15 @@ export async function updatePatientInDatabase(
   writeLocalQueue(queue);
 
   if (!supabase) return;
-  const { error } = await supabase.from('triage_cases').update({
-    ...(update.status ? { status: update.status } : {}),
-    ...(update.overrideReason ? { override_reason: update.overrideReason } : {}),
-    ...(update.overriddenRiskLevel ? { overridden_risk_level: update.overriddenRiskLevel, risk_level: update.overriddenRiskLevel } : {}),
-    ...(update.clinicalNotes ? { clinical_notes: update.clinicalNotes } : {}),
-    updated_at: new Date().toISOString(),
-  }).eq('id', id);
-  if (error) throw error;
+  try {
+    await supabase.from('triage_cases').update({
+      ...(update.status ? { status: update.status } : {}),
+      ...(update.overrideReason ? { override_reason: update.overrideReason } : {}),
+      ...(update.overriddenRiskLevel ? { overridden_risk_level: update.overriddenRiskLevel, risk_level: update.overriddenRiskLevel } : {}),
+      ...(update.clinicalNotes ? { clinical_notes: update.clinicalNotes } : {}),
+      updated_at: new Date().toISOString(),
+    }).eq('id', id);
+  } catch {
+    // Local queue state is already updated above and remains available offline.
+  }
 }
