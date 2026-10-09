@@ -8,7 +8,7 @@ import { QueueDashboard } from '@/pages/QueueDashboard';
 import { ReferralGenerator } from '@/pages/ReferralGenerator';
 import { Analytics } from '@/pages/Analytics';
 import type { PatientData, QueueItem } from '@/types/triage';
-import { ShieldCheck, Database, Wifi, AlertTriangle, Building2, Mic2, BrainCircuit, ClipboardCheck, FileText, ArrowRight, Activity } from 'lucide-react';
+import { ShieldCheck, Database, AlertTriangle, Building2, Mic2, BrainCircuit, ClipboardCheck, FileText, ArrowRight, Activity } from 'lucide-react';
 
 function AppContent() {
   const { view, setView, t } = useApp();
