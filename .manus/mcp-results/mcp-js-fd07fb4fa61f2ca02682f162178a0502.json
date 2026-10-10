@@ -1,0 +1,4 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"code":"BROWSER_ERROR","method":"browser_wait","callIndex":3,"nextAction":"inspect_before_retry"}
+Invalid arguments for browser_wait: validating root: validating /properties/condition: oneOf: did not validate against any of [<anonymous schema> <anonymous schema> <anonymous schema> <anonymous schema>]
+Invalid arguments for browser_wait: validating root: validating /properties/condition: oneOf: did not validate against any of [<anonymous schema> <anonymous schema> <anonymous schema> <anonymous schema>]

@@ -1,0 +1,4 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"code":"BROWSER_ERROR","method":"browser_click","callIndex":3,"nextAction":"inspect_before_retry"}
+Invalid arguments for browser_click: validating root: validating /properties/coordinate: required: missing properties: ["captureId" "sourceWidth" "sourceHeight"]
+Invalid arguments for browser_click: validating root: validating /properties/coordinate: required: missing properties: ["captureId" "sourceWidth" "sourceHeight"]

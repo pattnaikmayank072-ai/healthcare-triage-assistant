@@ -1,0 +1,4 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"location":"at <anonymous> (in-app-browser.js:2:276)"}
+cannot read property 'map' of undefined
+{"method":"browser_snapshot","warnings":["1 older browser snapshot were evicted by the bounded snapshot registry."]}
