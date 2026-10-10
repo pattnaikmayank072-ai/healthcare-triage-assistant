@@ -5,8 +5,9 @@ const QUEUE_KEY = 'triage-assistant:queue:v1';
 const PATIENTS_KEY = 'triage-assistant:patients:v1';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
-const djangoApiUrl = (import.meta.env.VITE_DJANGO_API_URL as string | undefined)?.replace(/\/$/, '')
-  || 'https://maverick5-triage-api.onrender.com/api';
+const configuredDjangoUrl = (import.meta.env.VITE_DJANGO_API_URL as string | undefined)?.replace(/\/$/, '')
+  || 'https://maverick5-triage-api.onrender.com';
+const djangoApiUrl = configuredDjangoUrl.endsWith('/api') ? configuredDjangoUrl : `${configuredDjangoUrl}/api`;
 
 export const isCloudDatabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 export const isDjangoBackendConfigured = Boolean(djangoApiUrl);
