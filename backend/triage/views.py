@@ -14,8 +14,10 @@ class TriageCaseViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         payload = request.data.copy()
         now = timezone.now()
-        payload.setdefault('created_at', now)
-        payload.setdefault('updated_at', now)
+        # Always use Django's timezone-aware ISO value. This avoids rejecting
+        # browser-generated timestamps while keeping the API contract simple.
+        payload['created_at'] = now.isoformat()
+        payload['updated_at'] = now.isoformat()
         serializer = self.get_serializer(data=payload)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
