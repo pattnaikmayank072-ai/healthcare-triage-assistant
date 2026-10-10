@@ -1,0 +1,4 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"location":"at <anonymous> (in-app-browser.js:2:130)"}
+cannot read property 'includes' of undefined
+[{"tabId":"tab_fc488354-d088-4d1f-ad19-9856c7b56227"},{"tabId":"tab_39796b8a-6958-48d5-bcce-bb508793439a"},{"tabId":"tab_f801a02e-5a00-4cb4-8dae-b969cc13df51"}]

@@ -1,0 +1,4 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"location":"at <anonymous> (in-app-browser.js:2:27)"}
+cannot read property 'observe' of undefined
+In-app Browser JavaScript context initialized; state is empty. Read the SDK guide before input.

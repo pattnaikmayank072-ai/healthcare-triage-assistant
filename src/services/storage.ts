@@ -5,8 +5,11 @@ const QUEUE_KEY = 'triage-assistant:queue:v1';
 const PATIENTS_KEY = 'triage-assistant:patients:v1';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+const djangoApiUrl = (import.meta.env.VITE_DJANGO_API_URL as string | undefined)?.replace(/\/$/, '')
+  || 'https://maverick5-triage-api.onrender.com/api';
 
 export const isCloudDatabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
+export const isDjangoBackendConfigured = Boolean(djangoApiUrl);
 export const supabase: SupabaseClient | null = isCloudDatabaseConfigured
   ? createClient(supabaseUrl!, supabaseAnonKey!, { auth: { persistSession: true } })
   : null;
@@ -44,39 +47,91 @@ export function writeLocalPatients(items: PatientData[]) {
   write(PATIENTS_KEY, items);
 }
 
+function djangoPayload(patient: PatientData) {
+  return {
+    id: patient.patient.id,
+    patient_name: patient.patient.name,
+    patient_age: patient.patient.age,
+    patient_gender: patient.patient.gender,
+    patient_phone: patient.patient.phone,
+    village: patient.patient.village,
+    facility: patient.patient.facility,
+    chief_complaint: patient.chiefComplaint,
+    symptom_history: patient.symptomHistory,
+    voice_transcript: patient.voiceTranscript,
+    symptoms: patient.symptoms,
+    ocr_results: patient.ocrResults,
+    images: patient.images,
+    risk_level: patient.riskLevel,
+    risk_score: patient.riskScore,
+    follow_up_questions: patient.followUpQuestions,
+    status: patient.status,
+    clinical_notes: patient.clinicalNotes ?? null,
+    override_reason: patient.overrideReason ?? null,
+    overridden_risk_level: patient.overriddenRiskLevel ?? null,
+    created_at: patient.createdAt,
+    updated_at: patient.updatedAt,
+  };
+}
+
+async function savePatientToDjango(patient: PatientData): Promise<void> {
+  try {
+    const endpoint = `${djangoApiUrl}/triage-cases/`;
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(djangoPayload(patient)),
+    });
+
+    // A repeated submission with the same id is updated instead of failing.
+    if (response.status === 400 || response.status === 409) {
+      await fetch(`${endpoint}${encodeURIComponent(patient.patient.id)}/`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(djangoPayload(patient)),
+      });
+    }
+  } catch {
+    // Django is best-effort; localStorage and Supabase keep the demo available offline.
+  }
+}
+
 export async function savePatientToDatabase(patient: PatientData): Promise<void> {
   const patients = readLocalPatients().filter((item) => item.patient.id !== patient.patient.id);
   writeLocalPatients([patient, ...patients]);
 
-  if (!supabase) return;
-  try {
-    await supabase.from('triage_cases').upsert({
-      id: patient.patient.id,
-      patient_name: patient.patient.name,
-      patient_age: patient.patient.age,
-      patient_gender: patient.patient.gender,
-      patient_phone: patient.patient.phone,
-      village: patient.patient.village,
-      facility: patient.patient.facility,
-      chief_complaint: patient.chiefComplaint,
-      symptom_history: patient.symptomHistory,
-      voice_transcript: patient.voiceTranscript,
-      symptoms: patient.symptoms,
-      ocr_results: patient.ocrResults,
-      images: patient.images,
-      risk_level: patient.riskLevel,
-      risk_score: patient.riskScore,
-      follow_up_questions: patient.followUpQuestions,
-      status: patient.status,
-      clinical_notes: patient.clinicalNotes ?? null,
-      override_reason: patient.overrideReason ?? null,
-      overridden_risk_level: patient.overriddenRiskLevel ?? null,
-      created_at: patient.createdAt,
-      updated_at: patient.updatedAt,
-    });
-  } catch {
-    // Keep the offline-first demo usable while the browser retries cloud sync later.
+  if (supabase) {
+    try {
+      await supabase.from('triage_cases').upsert({
+        id: patient.patient.id,
+        patient_name: patient.patient.name,
+        patient_age: patient.patient.age,
+        patient_gender: patient.patient.gender,
+        patient_phone: patient.patient.phone,
+        village: patient.patient.village,
+        facility: patient.patient.facility,
+        chief_complaint: patient.chiefComplaint,
+        symptom_history: patient.symptomHistory,
+        voice_transcript: patient.voiceTranscript,
+        symptoms: patient.symptoms,
+        ocr_results: patient.ocrResults,
+        images: patient.images,
+        risk_level: patient.riskLevel,
+        risk_score: patient.riskScore,
+        follow_up_questions: patient.followUpQuestions,
+        status: patient.status,
+        clinical_notes: patient.clinicalNotes ?? null,
+        override_reason: patient.overrideReason ?? null,
+        overridden_risk_level: patient.overriddenRiskLevel ?? null,
+        created_at: patient.createdAt,
+        updated_at: patient.updatedAt,
+      });
+    } catch {
+      // Keep the offline-first demo usable while the browser retries cloud sync later.
+    }
   }
+
+  await savePatientToDjango(patient);
 }
 
 export async function readCloudQueue(): Promise<QueueItem[] | null> {
@@ -110,8 +165,9 @@ export async function updatePatientInDatabase(
   id: string,
   update: Partial<Pick<PatientData, 'status' | 'overrideReason' | 'overriddenRiskLevel' | 'clinicalNotes'>>,
 ): Promise<void> {
+  const updatedAt = new Date().toISOString();
   const patients = readLocalPatients().map((patient) =>
-    patient.patient.id === id ? { ...patient, ...update, updatedAt: new Date().toISOString() } : patient,
+    patient.patient.id === id ? { ...patient, ...update, updatedAt } : patient,
   );
   writeLocalPatients(patients);
 
@@ -122,16 +178,33 @@ export async function updatePatientInDatabase(
   );
   writeLocalQueue(queue);
 
-  if (!supabase) return;
+  if (supabase) {
+    try {
+      await supabase.from('triage_cases').update({
+        ...(update.status ? { status: update.status } : {}),
+        ...(update.overrideReason ? { override_reason: update.overrideReason } : {}),
+        ...(update.overriddenRiskLevel ? { overridden_risk_level: update.overriddenRiskLevel, risk_level: update.overriddenRiskLevel } : {}),
+        ...(update.clinicalNotes ? { clinical_notes: update.clinicalNotes } : {}),
+        updated_at: updatedAt,
+      }).eq('id', id);
+    } catch {
+      // Local queue state is already updated above and remains available offline.
+    }
+  }
+
   try {
-    await supabase.from('triage_cases').update({
-      ...(update.status ? { status: update.status } : {}),
-      ...(update.overrideReason ? { override_reason: update.overrideReason } : {}),
-      ...(update.overriddenRiskLevel ? { overridden_risk_level: update.overriddenRiskLevel, risk_level: update.overriddenRiskLevel } : {}),
-      ...(update.clinicalNotes ? { clinical_notes: update.clinicalNotes } : {}),
-      updated_at: new Date().toISOString(),
-    }).eq('id', id);
+    await fetch(`${djangoApiUrl}/triage-cases/${encodeURIComponent(id)}/`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...(update.status ? { status: update.status } : {}),
+        ...(update.overrideReason ? { override_reason: update.overrideReason } : {}),
+        ...(update.overriddenRiskLevel ? { overridden_risk_level: update.overriddenRiskLevel, risk_level: update.overriddenRiskLevel } : {}),
+        ...(update.clinicalNotes ? { clinical_notes: update.clinicalNotes } : {}),
+        updated_at: updatedAt,
+      }),
+    });
   } catch {
-    // Local queue state is already updated above and remains available offline.
+    // Keep status changes usable if the API is temporarily asleep or unavailable.
   }
 }

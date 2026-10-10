@@ -1,0 +1,4 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"code":"ELEMENT_NOT_FOUND"}
+No matching element
+{"method":"browser_find","warnings":["1 older browser snapshot were evicted by the bounded snapshot registry."]}

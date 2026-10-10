@@ -1,0 +1,6 @@
+In-app Browser JS state was reset; rebuild state before continuing.
+Browser cell stopped: ACTION_IN_DOUBT
+{"method":"browser_upload_file","warnings":["The target file input is hidden and has no visible label in the current view; confirm it is the intended control."]}
+{"method":"browser_snapshot","warnings":["1 older browser snapshot were evicted by the bounded snapshot registry."]}
+ERROR ACTION_IN_DOUBT
+{"control":{"documentRevision":"rev_c422dd0d-e728-4082-aef1-aa907d68fc70","error":{"code":"ACTION_IN_DOUBT","retryable":false},"requiresSnapshot":true,"status":"in_doubt","tabId":"tab_57367abe-ca87-4c5e-8d19-c3400453352d"},"kind":"error","schema":"manus.browser/v1"}

@@ -1,0 +1,8 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"code":"NAVIGATION_INTERRUPTED","method":"browser_snapshot","callIndex":15,"nextAction":"inspect_before_retry"}
+ERROR NAVIGATION_INTERRUPTED
+The connection was interrupted. Retry navigation before retrying page actions; do not automatically resubmit form data.
+{"control":{"documentRevision":"rev_062caf4a-822c-4699-8e91-86c8869b8a23","error":{"code":"NAVIGATION_INTERRUPTED","retryable":true},"requiresSnapshot":false,"status":"error","tabId":"tab_f3170e48-25ab-496d-b4a0-7c285e2db404"},"kind":"error","page":{"contentTrust":"untrusted","url":"https://healthcare-triage-assistant.vercel.app/"},"schema":"manus.browser/v1","warnings":["ERR_CONNECTION_TIMED_OUT (-118)"]}
+ERROR NAVIGATION_INTERRUPTED
+The connection was interrupted. Retry navigation before retrying page actions; do not automatically resubmit form data.
+{"control":{"documentRevision":"rev_062caf4a-822c-4699-8e91-86c8869b8a23","error":{"code":"NAVIGATION_INTERRUPTED","retryable":true},"requiresSnapshot":false,"status":"error","tabId":"tab_f3170e48-25ab-496d-b4a0-7c285e2db404"},"kind":"error","page":{"contentTrust":"untrusted","url":"https://healthcare-triage-assistant.vercel.app/"},"schema":"manus.browser/v1","warnings":["ERR_CONNECTION_TIMED_OUT (-118)"]}

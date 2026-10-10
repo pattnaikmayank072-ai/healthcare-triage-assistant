@@ -1,0 +1,7 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"code":"REF_NOT_INTERACTABLE","method":"browser_fill","callIndex":2,"nextAction":"inspect_target"}
+ERROR REF_NOT_INTERACTABLE
+{"control":{"documentRevision":"rev_356bf261-61bf-4fe0-8cbe-af4f06838eda","error":{"code":"REF_NOT_INTERACTABLE","retryable":true},"requiresSnapshot":true,"status":"error","tabId":"tab_4cbbfcdd-4b77-42d0-887c-ac64e3340a90"},"kind":"error","schema":"manus.browser/v1"}
+Inspect a fresh screenshot and page state for an overlay, offscreen or disabled target before another input. Emit that capture once; output.observation already includes its images. Resolve only observed blockers within the task authorization, then find the target again. Do not repeat the same input unchanged.
+ERROR REF_NOT_INTERACTABLE
+{"control":{"documentRevision":"rev_356bf261-61bf-4fe0-8cbe-af4f06838eda","error":{"code":"REF_NOT_INTERACTABLE","retryable":true},"requiresSnapshot":true,"status":"error","tabId":"tab_4cbbfcdd-4b77-42d0-887c-ac64e3340a90"},"kind":"error","schema":"manus.browser/v1"}

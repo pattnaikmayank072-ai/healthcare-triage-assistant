@@ -1,0 +1,6 @@
+In-app Browser JS state was preserved. Completed actions were not rolled back; refresh stale UI handles and continue only the remaining work.
+{"code":"NAVIGATION_FAILED","method":"browser_history","callIndex":3,"nextAction":"inspect_before_retry"}
+ERROR NAVIGATION_FAILED
+{"control":{"documentRevision":"rev_d44f7c6f-3d91-4dee-9694-4ab4f9b7f655","error":{"code":"NAVIGATION_FAILED","retryable":false},"requiresSnapshot":false,"status":"error","tabId":"tab_0e951795-b9fc-42ad-8093-15ce8a1bc852"},"kind":"error","schema":"manus.browser/v1"}
+ERROR NAVIGATION_FAILED
+{"control":{"documentRevision":"rev_d44f7c6f-3d91-4dee-9694-4ab4f9b7f655","error":{"code":"NAVIGATION_FAILED","retryable":false},"requiresSnapshot":false,"status":"error","tabId":"tab_0e951795-b9fc-42ad-8093-15ce8a1bc852"},"kind":"error","schema":"manus.browser/v1"}
