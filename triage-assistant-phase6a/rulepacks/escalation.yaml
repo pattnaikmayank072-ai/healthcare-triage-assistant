@@ -1,6 +1,0 @@
-# Background Watchdog escalation policy.
-# Thresholds and escalation destinations are governance parameters, not defaults.
-# Do not populate the ladder until approved by the clinical safety officer and
-# facility manager. An empty ladder deliberately creates no automatic alerts.
-version: unconfigured
-escalation_ladder: {}
